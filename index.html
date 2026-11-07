@@ -63,4 +63,4 @@ $('clear').addEventListener('click',async()=>{if(!confirm('Delete ALL your cloud
  const {data:{session},error}=await db.auth.getSession();if(error)message(error.message,true);else if(session?.user)await showApp(session.user);
  db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT')showAuth();});
 })();
-</script></body></html>
+</script><script src="./trademind-dashboard-v2.js"></script></body></html>
