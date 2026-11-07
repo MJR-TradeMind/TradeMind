@@ -82,11 +82,6 @@
         border: 2px solid #77b8ff !important;
       }
 
-      .tm-chart {
-        width: 100%;
-        height: auto;
-      }
-
       .tm-review {
         margin-top: 18px;
         padding: 18px;
@@ -161,11 +156,6 @@
         <small>Average Win</small>
         <strong id="tm-avg">—</strong>
       </div>
-    </div>
-
-    <div class="tm-panel">
-      <h3>Equity Curve</h3>
-      <div id="tm-equity"></div>
     </div>
 
     <div class="tm-panel">
@@ -248,41 +238,6 @@
     el("tm-avg").textContent = wins.length
       ? money(gains / wins.length)
       : "—";
-
-    const ordered = [...data].sort((a, b) =>
-      String(a.date || "").localeCompare(String(b.date || ""))
-    );
-
-    let running = 0;
-
-    const values = [
-      0,
-      ...ordered.map(t =>
-        running += Number(t.pnl || 0)
-      )
-    ];
-
-    const min = Math.min(...values);
-    const max = Math.max(...values);
-    const range = max - min || 1;
-
-    const points = values.map((value, index) => {
-      const x = 20 + index * 560 / Math.max(values.length - 1, 1);
-      const y = 175 - (value - min) / range * 150;
-      return `${x},${y}`;
-    }).join(" ");
-
-    el("tm-equity").innerHTML = data.length
-      ? `<svg class="tm-chart" viewBox="0 0 600 200"
-          role="img" aria-label="Cumulative trading profit chart">
-          <polyline points="${points}"
-            fill="none"
-            stroke="#6bb8ff"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"/>
-         </svg>`
-      : "<p>Save trades to see your equity curve.</p>";
 
     updateCalendar();
 
@@ -504,5 +459,7 @@
     updateDashboard();
   };
 
+  updateDashboard();
+})();
   updateDashboard();
 })();
